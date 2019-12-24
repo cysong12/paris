@@ -2,11 +2,11 @@ $(document).ready(function(){
 
     let db = firebase.firestore();
 
-    let name, form;
+    let name, label, wage;
 
     edit();
     readEmployeeDb();
-    
+
     function readEmployeeDb() {
         let i = 0; 
         let j;
@@ -15,8 +15,10 @@ $(document).ready(function(){
                 // doc.data() is never undefined for query doc snapshots
                 if (doc.data().name !== '') {
                     j = i + 1;
-                    form = document.getElementById("usr" + j.toString());
-                    form.setAttribute('value', doc.data().name);
+                    label = document.getElementById("user" + j.toString());
+                    label.innerText = doc.data().name;
+                    wage = document.getElementById("usr" + j.toString());
+                    wage.setAttribute("VALUE", doc.data().wage);
                 }
                 i++;
             });
@@ -28,27 +30,17 @@ $(document).ready(function(){
 
     function edit() {
         $("#saveButton").click(function() {
-            let names = document.getElementsByTagName("INPUT");
+            let wages = document.getElementsByTagName("INPUT");
             //console.log(names[0].value);
-            for (let i = 0; i < names.length; i++) {
-                if (names[i].value.replace(/\s+/g, '') != '') {
+            for (let i = 0; i < wages.length; i++) {
+                if (wages[i].value.replace(/\s+/g, '') != '') {         //use trim (easier for deletion)
                     db.collection("employees").doc(i.toString()).set({
-                        name: names[i].value.replace(/\s+/g, ''),
-                        wage: 0
-                    });
+                        wage: wages[i].value.replace(/\s+/g, '')
+                    }, {merge: true});
                 }
             }
             window.alert("저장이 완료되었습니다");
-                
-            
-
         });
     }
-
-
-
-
-
-
 
 });
