@@ -4,10 +4,14 @@ $(document).ready(function(){
 
     let name, label, wage;
 
-    save();
-    readEmployeeDb();
+    //readEmployeeDb();
 
     let names = document.getElementsByClassName("user");
+
+    $('#input_starttime').pickatime({
+        default: 'now',
+        editable: true,
+    });
 
     function readEmployeeDb() {
         let i = 0; 
