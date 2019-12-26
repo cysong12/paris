@@ -95,7 +95,7 @@ $(document).ready(function(){
                 tbody.appendChild(tr);
                 tdname.innerHTML = doc.data().name;
                 tr.appendChild(tdname);
-                tdwage.innerHTML = doc.data().wage;
+                tdwage.innerHTML = '₩' + doc.data().wage;
                 tr.appendChild(tdwage);
                 tr.appendChild(tdduration);
                 tr.appendChild(tddayincome);
