@@ -43,13 +43,14 @@
     <div class="container">
         <div class="row">
             <div class='col-sm-6'>
+                <label>시작 날짜</label>
                 <input type='text' class="form-control" id='datetimepicker1' />
             </div>
             <script type="text/javascript">
                 $(function () {
                     $('#datetimepicker1').datetimepicker(
                         {
-                            format: 'YYYY-MM-DD'
+                            format: 'YYYY-MM-DD ddd'
                         }
                     );
                 });
@@ -57,13 +58,14 @@
         </div>
         <div class="row">
             <div class='col-sm-6'>
+                <label>끝 날짜</label>
                 <input type='text' class="form-control" id='datetimepicker2' />
             </div>
             <script type="text/javascript">
                 $(function () {
                     $('#datetimepicker2').datetimepicker(
                         {
-                            format: 'YYYY-MM-DD'
+                            format: 'YYYY-MM-DD ddd'
                         }
                     );
                 });
@@ -74,8 +76,8 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-12 content">
-                <table class="table" id="table">
+            <div class="col-md-12 content" id="table">
+               <!-- <table class="table" id="table">
                     <thead>
                         <tr>
                             <th>이름</th>
@@ -92,7 +94,7 @@
                             <td>W11000</td>
                         </tr>
 
-                    </tbody>
+                    </tbody> -->
             </div>
         </div>
     </div>

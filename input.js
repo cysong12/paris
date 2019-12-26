@@ -143,23 +143,43 @@ $(document).ready(function(){
     console.log(startTimes[0].value);
 
     $("#saveButton").click(function() {
-        for (i = 0; i < employee_count; i++) {
-            startTemp = startTimes[i].value;
-            endTemp = endTimes[i].value;
-            differenceArr = differenceCalculate(startTemp, endTemp);
-            difference = differenceArr[0];
-            differencePrint = differenceArr[1];
-            console.log(startTemp, endTemp);
-            console.log(difference);
-            console.log(wageArr[i]);
-            dayIncome = difference / 60 * wageArr[i];
-            dayIncomeArr.push(dayIncome);
-            db.collection("employees").doc(String.fromCharCode(i+65)).collection("timetable").doc(date).set({
-                startTime: startTemp,
-                endTime: endTemp,
-                duration: differencePrint,
-                dayIncome: difference / 60 * wageArr[i]
-            });
+        if (valid12 === false) {
+            let clicked = confirm("직원중 한명이 12시간이 넘습니다. 그래도 저장하시겠습니까?");
+            if (clicked == true) {
+                for (i = 0; i < employee_count; i++) {
+                    startTemp = startTimes[i].value;
+                    endTemp = endTimes[i].value;
+                    differenceArr = differenceCalculate(startTemp, endTemp);
+                    difference = differenceArr[0];
+                    differencePrint = differenceArr[1];
+                    dayIncome = difference / 60 * wageArr[i];
+                    dayIncomeArr.push(dayIncome);
+                    console.log((difference / 60 * wageArr[i]).toFixed(2));
+                    db.collection("employees").doc(String.fromCharCode(i+65)).collection("timetable").doc(date).set({
+                        startTime: startTemp,
+                        endTime: endTemp,
+                        duration: difference,
+                        dayIncome: (difference / 60 * wageArr[i]).toFixed(2)
+                    });
+                }
+            }
+        } else {
+            for (i = 0; i < employee_count; i++) {
+                startTemp = startTimes[i].value;
+                endTemp = endTimes[i].value;
+                differenceArr = differenceCalculate(startTemp, endTemp);
+                difference = differenceArr[0];
+                differencePrint = differenceArr[1];
+                dayIncome = difference / 60 * wageArr[i];
+                dayIncomeArr.push(dayIncome);
+                console.log((difference / 60 * wageArr[i]).toFixed(2));
+                db.collection("employees").doc(String.fromCharCode(i+65)).collection("timetable").doc(date).set({
+                    startTime: startTemp,
+                    endTime: endTemp,
+                    duration: difference,
+                    dayIncome: (difference / 60 * wageArr[i]).toFixed(2)
+                });
+            }
         }
     });
 
@@ -178,10 +198,11 @@ $(document).ready(function(){
         durationHour = parseInt((endTotalMinutes - startTotalMinutes - durationMinute) / 60);
         return [durationInMinutes, durationHour.toString() + ':', durationMinute.toString()];
     }
-
+    let valid12;
     document.getElementById("saveButton").disabled = true;
     $("#checkButton").click(function() {
         let valid = true;
+        valid12 = true;
         for (let i = 0; i < employee_count; i++) {
             startTemp = startTimes[i].value;
             endTemp = endTimes[i].value;
@@ -192,6 +213,10 @@ $(document).ready(function(){
                 dayIncomeLabel[i].style.color = "red";
                 document.getElementById("saveButton").disabled = true;
                 valid = false;
+            } else if (difference > 720) {
+                dayIncomeLabel[i].innerHTML = '12시간이 넘습니다!';
+                dayIncomeLabel[i].style.color = "red";
+                valid12 = false;
             } else {
                 differencePrint = differenceArr[1];
                 dayIncome = difference / 60 * wageArr[i];
