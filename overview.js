@@ -106,7 +106,11 @@ $(document).ready(function(){
                         tddayincome.innerHTML = Number(tddayincome.innerHTML) + Number(doc.data().dayIncome);
                     });
                     tdduration.innerHTML = Math.floor(tdduration.innerHTML / 60).toString() + '시간 ' + (tdduration.innerHTML % 60).toString() + '분';
-                    tddayincome.innerHTML = '₩' + tddayincome.innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    if (tddayincome.innerHTML != '') {
+                        tddayincome.innerHTML = '₩' + tddayincome.innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    } else {
+                        tddayincome.innerHTML = '₩0';
+                    }
                 })
                 .catch(function(error) {
                     console.log("Error getting documents: ", error);
