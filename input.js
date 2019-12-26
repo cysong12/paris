@@ -263,6 +263,7 @@ $(document).ready(function(){
             } else {
                 differencePrint = differenceArr[1];
                 dayIncome = difference / 60 * wageArr[i];
+                console.log('hi');
                 dayIncomeLabel[i].innerHTML = '일급: W' + dayIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 dayIncomeLabel[i].style.color = "green";
             }
