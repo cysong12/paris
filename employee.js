@@ -30,7 +30,7 @@ $(document).ready(function(){
         $("#saveButton").click(function() {
             let names = document.getElementsByTagName("INPUT");
             //console.log(names[0].value);
-            let clicked = confirm("정보고 확실합니까? 이름이 변경됬거나 순서가 변경되는경우 전 정보가 지워질수도있습니다.");
+            let clicked = confirm("정보가 확실합니까? 이름이 변경됬거나 순서가 변경되는경우 전 정보가 지워질수도있습니다.");
             if (clicked === true) {
                 for (let i = 0; i < names.length; i++) {        //no query since check doc exist
                         db.collection("employees").doc(String.fromCharCode(i+65)).get().then(function(doc) {
