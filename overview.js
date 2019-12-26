@@ -87,45 +87,44 @@ $(document).ready(function(){
                 let tr = document.createElement("TR");
                 let tdname = document.createElement("TD");
                 let tdduration = document.createElement("TD");
+                tdduration.setAttribute("class", "tdduration");
                 let tdwage = document.createElement("TD");
                 let tddayincome= document.createElement("TD");
+                tddayincome.setAttribute("class", "tddayincome");
 
                 tbody.appendChild(tr);
                 tdname.innerHTML = doc.data().name;
                 tr.appendChild(tdname);
                 tdwage.innerHTML = doc.data().wage;
                 tr.appendChild(tdwage);
-
-                let duratioN = 0;
-                let dayIncomE = 0;
-                
-                
-                for (let i=0; i < dates.length; i++) {
-                    console.log(docDateFormat(dates[i]));
-                    doc.ref.collection("timetable").doc(docDateFormat(dates[i])).get().then(function(doc) {
-                        if (doc.exists) {
-                            tdduration.innerHTML = Number(tdduration.innerHTML) + Number(doc.data().duration);
-                            tddayincome.innerHTML = Number(tddayincome.innerHTML) + Number(doc.data().dayIncome);
-                            console.log(duratioN);
-                        } else {
-                            // doc.data() will be undefined in this case
-                        }
-                        i++;
-                    }).catch(function(error) {
-                        console.log("Error getting document:", error);
-                    });
-                    //console.log(duratioN);
-                }
-
                 tr.appendChild(tdduration);
                 tr.appendChild(tddayincome);
+                doc.ref.collection("timetable").where("dateCode", ">=", queryDateFormat(startDate))
+                .where("dateCode", "<=", queryDateFormat(endDate)).get().then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        tdduration.innerHTML = Number(tdduration.innerHTML) + Number(doc.data().duration);
+                        tddayincome.innerHTML = Number(tddayincome.innerHTML) + Number(doc.data().dayIncome);
+                    });
+                    tdduration.innerHTML = Math.floor(tdduration.innerHTML / 60).toString() + '시간 ' + (tdduration.innerHTML % 60).toString() + '분';
+                    tddayincome.innerHTML = '₩' + tddayincome.innerHTML;
+                })
+                .catch(function(error) {
+                    console.log("Error getting documents: ", error);
+                });
             });
-        })
-        .catch(function(error) {
-            console.log("Error getting documents: ", error);
         });
     }
 
+    function queryDateFormat(date) {
+        let month;
+        if (date.getMonth() + 1 <= 9) {
+            month = '0' + (date.getMonth() + 1).toString();
+        } else {
+            month = (date.getMonth() + 1).toString();
+        }
+        console.log(date.getFullYear() + month + date.getDate());
+        return Number(date.getFullYear().toString() + month + date.getDate().toString());
+    }
     function docDateFormat(date) {
         let monthNames = [
             "Jan", "Feb", "Mar",

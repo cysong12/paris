@@ -11,6 +11,8 @@ $(document).ready(function(){
     let date = tempVar[1];
     console.log(date);
 
+    let datedb, monthdb;
+
     dayName = date.substring(0, 3);
     month = date.substring(3, 6);
     day = date.substring(6, 8);
@@ -18,6 +20,45 @@ $(document).ready(function(){
 
     dayKR = day + '일';
     yearKR = year + '년';
+    switch(month) {
+        case "Jan":
+            monthdb = '01';
+            break;
+        case "Feb":
+            monthdb = '02';
+            break;
+        case "Mar":
+            monthdb = '03';
+            break;
+        case "Apr":
+            monthdb = '04';
+            break;
+        case "May":
+            monthdb = '05';
+            break;
+        case "Jun":
+            monthdb = '06';
+            break;
+        case "Jul":
+            monthdb = '07';
+            break;
+        case "Aug":
+            monthdb = '08';
+            break;
+        case "Sep":
+            monthdb = '09';
+            break;
+        case "Oct":
+            monthdb = '10';
+            break;
+        case "Nov":
+            monthdb = '11';
+            break;
+        case "Dec":
+            monthdb = '12';
+            break;
+    }
+    datedb = year + monthdb + day;
 
     switch(dayName) {
         case "Mon":
@@ -159,6 +200,7 @@ $(document).ready(function(){
                         startTime: startTemp,
                         endTime: endTemp,
                         duration: difference,
+                        dateCode: Number(datedb),
                         dayIncome: (difference / 60 * wageArr[i]).toFixed(2)
                     });
                 }
@@ -177,6 +219,7 @@ $(document).ready(function(){
                     startTime: startTemp,
                     endTime: endTemp,
                     duration: difference,
+                    dateCode: Number(datedb),
                     dayIncome: (difference / 60 * wageArr[i]).toFixed(2)
                 });
             }
