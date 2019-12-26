@@ -41,24 +41,56 @@
         </div>
     </nav>
     <div class="container">
-        <div class='row'>
-            <div class="form-group">
-                <div class='input-group date' id='datetimepicker6'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
+        <div class="row">
+            <div class='col-sm-6'>
+                <input type='text' class="form-control" id='datetimepicker1' />
             </div>
+            <script type="text/javascript">
+                $(function () {
+                    $('#datetimepicker1').datetimepicker(
+                        {
+                            format: 'YYYY-MM-DD'
+                        }
+                    );
+                });
+            </script>
         </div>
-        <div class='row'>
-            <div class="form-group">
-                <div class='input-group date' id='datetimepicker7'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
+        <div class="row">
+            <div class='col-sm-6'>
+                <input type='text' class="form-control" id='datetimepicker2' />
+            </div>
+            <script type="text/javascript">
+                $(function () {
+                    $('#datetimepicker2').datetimepicker(
+                        {
+                            format: 'YYYY-MM-DD'
+                        }
+                    );
+                });
+            </script>
+        </div>
+        <button type="submit" id="viewButton">보기</button>
+        <p id="checkValidP"></p>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 content">
+                <table class="table" id="table">
+                    <thead>
+                        <tr>
+                            <th>이름</th>
+                            <th>시급</th>
+                            <th>급</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr>
+                            <td>John Doe</td>
+                            <td>W1100</td>
+                            <td>W11000</td>
+                        </tr>
+
+                    </tbody>
             </div>
         </div>
     </div>
