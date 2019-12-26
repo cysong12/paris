@@ -115,7 +115,7 @@ $(document).ready(function(){
         });
         for (let j=0; j < 18; j++) {
             console.log('hmm');
-            db.collection("employees").doc(j.toString()).collection("timetable").doc(date).get().then(function(doc) {
+            db.collection("employees").doc(String.fromCharCode(j+65)).collection("timetable").doc(date).get().then(function(doc) {
                 if (doc.exists) {
                     if (doc.data().startTime !== "00:00:00") {
                         console.log('yo');
@@ -152,7 +152,7 @@ $(document).ready(function(){
             console.log(difference);
             console.log(wageArr[i]);
             dayIncome = difference / 60 * wageArr[i];
-            db.collection("employees").doc(i.toString()).collection("timetable").doc(date).set({
+            db.collection("employees").doc(String.fromCharCode(i+65)).collection("timetable").doc(date).set({
                 startTime: startTemp,
                 endTime: endTemp,
                 duration: differencePrint,

@@ -37,10 +37,7 @@ $(document).ready(function(){
         db.collection("employees").get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
                 // doc.data() is never undefined for query doc snapshots
-                if (doc.data().name !== '') {
-                    names[i].innerHTML = doc.data().name + ' (시급: ₩' + doc.data().wage + ')';
-                    wageArr.push(doc.data().wage);
-                    employee_count++;
+                doc.ref.collection("ti
                 }
                 i++;
             });
