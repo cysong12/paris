@@ -139,6 +139,7 @@ $(document).ready(function(){
 
     let duration, startM, startH, endM, endH;
     let startTemp, endTemp, dayIncome;
+    let dayIncomeArr = [];
     console.log(startTimes[0].value);
 
     $("#saveButton").click(function() {
@@ -152,6 +153,7 @@ $(document).ready(function(){
             console.log(difference);
             console.log(wageArr[i]);
             dayIncome = difference / 60 * wageArr[i];
+            dayIncomeArr.push(dayIncome);
             db.collection("employees").doc(String.fromCharCode(i+65)).collection("timetable").doc(date).set({
                 startTime: startTemp,
                 endTime: endTemp,
@@ -177,11 +179,30 @@ $(document).ready(function(){
         return [durationInMinutes, durationHour.toString() + ':', durationMinute.toString()];
     }
 
-    function checkValid() {
-        for (let i = 0; i < 18; i++) {
-            
+    document.getElementById("saveButton").disabled = true;
+    $("#checkButton").click(function() {
+        let valid = true;
+        for (let i = 0; i < employee_count; i++) {
+            startTemp = startTimes[i].value;
+            endTemp = endTimes[i].value;
+            differenceArr = differenceCalculate(startTemp, endTemp);
+            difference = differenceArr[0];
+            if (difference < 0) {
+                dayIncomeLabel[i].innerHTML = '시간이 옳은지 다시 확인해주세요';
+                dayIncomeLabel[i].style.color = "red";
+                document.getElementById("saveButton").disabled = true;
+                valid = false;
+            } else {
+                differencePrint = differenceArr[1];
+                dayIncome = difference / 60 * wageArr[i];
+                dayIncomeLabel[i].innerHTML = 'W' + dayIncome;
+                dayIncomeLabel[i].style.color = "green";
+            }
         }
-    }
+        if (valid) {
+            document.getElementById("saveButton").disabled = false;
+        }
+    });
 
     
 });
