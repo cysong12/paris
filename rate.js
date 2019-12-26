@@ -34,7 +34,7 @@ $(document).ready(function(){
             //console.log(names[0].value);
             for (let i = 0; i < wages.length; i++) {
                 if (wages[i].value.replace(/\s+/g, '') != '') {         //use trim (easier for deletion)
-                    db.collection("employees").doc(i.toString()).set({
+                    db.collection("employees").doc(String.fromCharCode(i+65)).set({
                         wage: wages[i].value.replace(/\s+/g, '')
                     }, {merge: true});
                 }

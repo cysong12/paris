@@ -30,23 +30,23 @@ $(document).ready(function(){
         $("#saveButton").click(function() {
             let names = document.getElementsByTagName("INPUT");
             //console.log(names[0].value);
-            for (let i = 0; i < names.length; i++) {
-                //if (names[i].value.replace(/\s+/g, '') != '') {
-                    db.collection("employees").doc(i.toString()).get().then(function(doc) {
+
+            for (let i = 0; i < names.length; i++) {        //no query since check doc exist
+                    db.collection("employees").doc(String.fromCharCode(i+65)).get().then(function(doc) {
                         if (!doc.exists && names[i].value.replace(/\s+/g, '') !== '') {
                             console.log('here');
-                            db.collection("employees").doc(i.toString()).set({
+                            db.collection("employees").doc(String.fromCharCode(i+65)).set({
                                 name: names[i].value.replace(/\s+/g, ''),
                                 wage: 0
                             });
                         }
                         else if (doc.exists && names[i].value.replace(/\s+/g, '') === '') {
                             console.log('yellow');
-                            db.collection("employees").doc(i.toString()).delete();
+                            db.collection("employees").doc(String.fromCharCode(i+65)).delete();
                         }
                         else if (doc.exists && doc.data().name !== names[i].value.replace(/\s+/g, '')) {
                             console.log('there');
-                            db.collection("employees").doc(i.toString()).set({
+                            db.collection("employees").doc(String.fromCharCode(i+65)).set({
                                 name: names[i].value.replace(/\s+/g, ''),
                                 wage: 0
                             });

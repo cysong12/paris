@@ -5,7 +5,6 @@ $(document).ready(function(){
     let name, label, wage;
     let dayName, month, day, year;
     let dayNameKR, monthKR, dayKR, yearKR;
-    let employee_count;
 
     let queryStringURL = decodeURIComponent(window.location.search);
     let tempVar = queryStringURL.split('?');
@@ -86,6 +85,8 @@ $(document).ready(function(){
     console.log(dayName, month, day, year);
     document.getElementById("dateP").innerHTML = yearKR + ' ' + monthKR + ' ' + dayKR + ' ' + dayNameKR;
 
+    let employee_count = 0;
+
     readEmployeeDb();
 
     let names = document.getElementsByClassName("user");
@@ -97,8 +98,7 @@ $(document).ready(function(){
 
     function readEmployeeDb() {
         let i = 0;
-        let j = 0;
-        employee_count = 0; 
+        
         db.collection("employees").get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
                 // doc.data() is never undefined for query doc snapshots
@@ -113,19 +113,28 @@ $(document).ready(function(){
         .catch(function(error) {
             console.log("Error getting documents: ", error);
         });
-        db.collection("employees").doc(j.toString()).collection("timetable").doc(date).get().then(function(doc) {
-            if (doc.exists) {
-                startTimes[j].value = doc.data().startTime;
-                endTimes[j].value = doc.data().endTime;
-                dayIncomeLabel[j].innerHTML = "₩ " + doc.data().dayIncome;
-            } else {
-                startTimes[j].value = "00:00";
-                endTimes[j].value = "00:00";
-                dayIncomeLabel[j].innerHTML = "₩ 0";
-            }
-        }).catch(function(error) {
-            console.log("Error getting document:", error);
-        });
+        for (let j=0; j < 18; j++) {
+            console.log('hmm');
+            db.collection("employees").doc(j.toString()).collection("timetable").doc(date).get().then(function(doc) {
+                if (doc.exists) {
+                    if (doc.data().startTime !== "00:00:00") {
+                        console.log('yo');
+                        startTimes[j].value = doc.data().startTime;
+                        endTimes[j].value = doc.data().endTime;
+                        dayIncomeLabel[j].innerHTML = "일급: ₩" + doc.data().dayIncome;
+                    } else {
+                        startTimes[j].value = "00:00:00";
+                        endTimes[j].value = "00:00:00";
+                        dayIncomeLabel[j].innerHTML = "일급: ₩ 0";
+                    }
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+        }
     }
 
     let duration, startM, startH, endM, endH;
@@ -133,7 +142,6 @@ $(document).ready(function(){
     console.log(startTimes[0].value);
 
     $("#saveButton").click(function() {
-        console.log(employee_count);
         for (i = 0; i < employee_count; i++) {
             startTemp = startTimes[i].value;
             endTemp = endTimes[i].value;
@@ -170,7 +178,7 @@ $(document).ready(function(){
     }
 
     function checkValid() {
-        for (let i = 0; i < employee_count; i++) {
+        for (let i = 0; i < 18; i++) {
             
         }
     }
