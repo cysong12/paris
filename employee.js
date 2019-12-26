@@ -40,6 +40,11 @@ $(document).ready(function(){
                                     name: names[i].value.replace(/\s+/g, ''),
                                     wage: 0
                                 });
+                                db.collection("employees").doc(String.fromCharCode(i+65)).collection("timetable").get().then(function(querySnapshot) {
+                                    querySnapshot.forEach(function(doc) {
+                                      doc.ref.delete();
+                                    });
+                                  });
                             }
                             else if (doc.exists && names[i].value.replace(/\s+/g, '') === '') {
                                 console.log('yellow');
@@ -51,6 +56,11 @@ $(document).ready(function(){
                                     name: names[i].value.replace(/\s+/g, ''),
                                     wage: 0
                                 });
+                                db.collection("employees").doc(String.fromCharCode(i+65)).collection("timetable").get().then(function(querySnapshot) {
+                                    querySnapshot.forEach(function(doc) {
+                                      doc.ref.delete();
+                                    });
+                                  });
                             }
                             else {
                                 console.log('yonder');
