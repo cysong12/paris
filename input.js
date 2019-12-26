@@ -144,7 +144,7 @@ $(document).ready(function(){
             querySnapshot.forEach(function(doc) {
                 // doc.data() is never undefined for query doc snapshots
                 if (doc.data().name !== '') {
-                    names[i].innerHTML = doc.data().name + ' (시급: ₩' + doc.data().wage + ')';
+                    names[i].innerHTML = doc.data().name + ' (시급: ₩' + doc.data().wage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ')';
                     wageArr.push(doc.data().wage);
                     employee_count++;
                 }
@@ -162,11 +162,11 @@ $(document).ready(function(){
                         console.log('yo');
                         startTimes[j].value = doc.data().startTime;
                         endTimes[j].value = doc.data().endTime;
-                        dayIncomeLabel[j].innerHTML = "일급: ₩" + doc.data().dayIncome;
+                        dayIncomeLabel[j].innerHTML = "일급: ₩" + doc.data().dayIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     } else {
                         startTimes[j].value = "00:00:00";
                         endTimes[j].value = "00:00:00";
-                        dayIncomeLabel[j].innerHTML = "일급: ₩ 0";
+                        dayIncomeLabel[j].innerHTML = "일급: ₩0";
                     }
                 } else {
                     // doc.data() will be undefined in this case

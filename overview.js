@@ -95,7 +95,7 @@ $(document).ready(function(){
                 tbody.appendChild(tr);
                 tdname.innerHTML = doc.data().name;
                 tr.appendChild(tdname);
-                tdwage.innerHTML = '₩' + doc.data().wage;
+                tdwage.innerHTML = '₩' + doc.data().wage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 tr.appendChild(tdwage);
                 tr.appendChild(tdduration);
                 tr.appendChild(tddayincome);
@@ -106,7 +106,7 @@ $(document).ready(function(){
                         tddayincome.innerHTML = Number(tddayincome.innerHTML) + Number(doc.data().dayIncome);
                     });
                     tdduration.innerHTML = Math.floor(tdduration.innerHTML / 60).toString() + '시간 ' + (tdduration.innerHTML % 60).toString() + '분';
-                    tddayincome.innerHTML = '₩' + tddayincome.innerHTML;
+                    tddayincome.innerHTML = '₩' + tddayincome.innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 })
                 .catch(function(error) {
                     console.log("Error getting documents: ", error);
