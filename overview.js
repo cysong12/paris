@@ -123,12 +123,13 @@ $(document).ready(function(){
             month = (date.getMonth() + 1).toString();
         }
         let day;
+        //console.log(typeof(date.getDate()));  number
         if (date.getDate() <= 9) {
             day = '0' + (date.getDate()).toString();
         } else {
             day = (date.getDate()).toString();
         }
-        console.log(date.getFullYear() + month + date.getDate());
+        console.log(date.getFullYear() + month + day);
         return Number(date.getFullYear().toString() + month + day);
     }
     function docDateFormat(date) {
