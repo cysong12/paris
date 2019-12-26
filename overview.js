@@ -122,8 +122,14 @@ $(document).ready(function(){
         } else {
             month = (date.getMonth() + 1).toString();
         }
+        let day;
+        if (date.getDate() <= 9) {
+            day = '0' + (date.getDate()).toString();
+        } else {
+            day = (date.getDate()).toString();
+        }
         console.log(date.getFullYear() + month + date.getDate());
-        return Number(date.getFullYear().toString() + month + date.getDate().toString());
+        return Number(date.getFullYear().toString() + month + day);
     }
     function docDateFormat(date) {
         let monthNames = [
