@@ -91,14 +91,19 @@ $(document).ready(function(){
     let names = document.getElementsByClassName("user");
     let wageArr = [];
 
+    let startTimes = document.getElementsByClassName("startTime");
+    let endTimes = document.getElementsByClassName("endTime");
+    let dayIncomeLabel = document.getElementsByClassName("dayIncome");
+
     function readEmployeeDb() {
         let i = 0;
+        let j = 0;
         employee_count = 0; 
         db.collection("employees").get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
                 // doc.data() is never undefined for query doc snapshots
                 if (doc.data().name !== '') {
-                    names[i].innerHTML = doc.data().name + ' (₩' + doc.data().wage + ')';
+                    names[i].innerHTML = doc.data().name + ' (시급: ₩' + doc.data().wage + ')';
                     wageArr.push(doc.data().wage);
                     employee_count++;
                 }
@@ -108,12 +113,23 @@ $(document).ready(function(){
         .catch(function(error) {
             console.log("Error getting documents: ", error);
         });
+        db.collection("employees").doc(j.toString()).collection("timetable").doc(date).get().then(function(doc) {
+            if (doc.exists) {
+                startTimes[j].value = doc.data().startTime;
+                endTimes[j].value = doc.data().endTime;
+                dayIncomeLabel[j].innerHTML = "₩ " + doc.data().dayIncome;
+            } else {
+                startTimes[j].value = "00:00";
+                endTimes[j].value = "00:00";
+                dayIncomeLabel[j].innerHTML = "₩ 0";
+            }
+        }).catch(function(error) {
+            console.log("Error getting document:", error);
+        });
     }
 
-    let startTimes = document.getElementsByClassName("startTime");
-    let endTimes = document.getElementsByClassName("endTime");
     let duration, startM, startH, endM, endH;
-    let startTemp, endTemp;
+    let startTemp, endTemp, dayIncome;
     console.log(startTimes[0].value);
 
     $("#saveButton").click(function() {
@@ -127,6 +143,7 @@ $(document).ready(function(){
             console.log(startTemp, endTemp);
             console.log(difference);
             console.log(wageArr[i]);
+            dayIncome = difference / 60 * wageArr[i];
             db.collection("employees").doc(i.toString()).collection("timetable").doc(date).set({
                 startTime: startTemp,
                 endTime: endTemp,
