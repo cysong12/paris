@@ -59,7 +59,7 @@ $(document).ready(function(){
         th1.innerHTML = "이름";
         th2.innerHTML = "시급";
         th3.innerHTML = "시간";
-        th4.innerHTML = "급";
+        th4.innerHTML = "급여";
         tr.appendChild(th1);
         tr.appendChild(th2);
         tr.appendChild(th3);
