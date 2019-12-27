@@ -78,7 +78,7 @@ $(document).ready(function(){
     }
     function tempAlert(){
         let el = document.createElement("div");
-        el.setAttribute("style","position:relative;margin:10px 0px 0px 0px;background-color:grey;color:white;");
+        
         el.innerHTML = "저장중...";
         setTimeout(function(){
             el.parentNode.removeChild(el);
