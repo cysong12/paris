@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-
+  
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
@@ -33,10 +33,23 @@
     <!--bootstrap-year-calendar-->
     <link rel='stylesheet' type='text/css' href="calendar.css">
     <script src="calendar.js"></script>
-    
+  
+    <style>
+      #login {
+        font-size: 36px;
+      }
+    </style>
   </head>
   <body>
-
+  <div class="container" id="securityDiv">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 id='security'>Unauthroized user</h1>
+        <a href="index.html" id="login">접속</a>
+      </div>
+    </div>
+  </div>
+  <div id="authorized">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -62,10 +75,24 @@
         </div>
       </div>
     </div>
+</div>
 
 <script>
 
         var db = firebase.firestore();
+        let uid = localStorage.getItem("userId");
+        console.log(uid);
+        if (uid !== "gDquuD8SSHRtpQLVpAt9fTt886r2" && uid !== "lhVx5eeIyvdSwtpeU9D9Jx8DZDw1" && uid !== null) {
+          document.getElementById("authorized").style.display = "none";
+          document.getElementById("login").style.display = "none";
+        } else if (uid === null) {
+          document.getElementById("authorized").style.display = "none";
+        }
+        //gDquuD8SSHRtpQLVpAt9fTt886r2
+        //lhVx5eeIyvdSwtpeU9D9Jx8DZDw1
+        else {
+          document.getElementById("securityDiv").style.display = "none";
+        }
 
 $(document).ready(function(){
             

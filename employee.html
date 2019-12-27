@@ -38,17 +38,29 @@
             position: relative;
             margin: 10px 0px 0px 0px;
         }
+        #login {
+            font-size: 36px;
+        }
     </style>
     
   </head>
   <body>
+    <div class="container" id="securityDiv">
+        <div class="row">
+          <div class="col-md-12">
+            <h1 id='security'>Unauthroized user</h1>
+            <a href="index.html" id="login">접속</a>
+          </div>
+        </div>
+      </div>
+    <div id="authorized">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="index.html">파리바게트</a>
+            <a class="navbar-brand" href="main.html">파리바게트</a>
           </div>
           <ul class="nav navbar-nav">
-            <li><a href="index.html">홈</a></li>
+            <li><a href="main.html">홈</a></li>
             <li><a href="overview.html">기간별 급여</a></li>
             <li class="active"><a href="employee.html">직원</a></li>
             <li><a href="rate.html">시급</a></li>
@@ -180,16 +192,7 @@
         <button id="saveButton" type='submit'>저장</button>
         
       </div>
-<script>
-
-        var db = firebase.firestore();
-
-$(document).ready(function(){
-            
-  
-
-});
-    </script>
+    </div>
     <script src="employee.js"></script>
   </body>
 </html>

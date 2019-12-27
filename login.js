@@ -17,7 +17,7 @@
       //localStorage.setItem("userId", user.uid);
         if (authResult.additionalUserInfo.isNewUser)
         {
-            return false;
+            return true;
         }
         else 
         {
@@ -57,6 +57,9 @@ firebase.auth().onAuthStateChanged(function(user) {
     localStorage.clear();   //clear localstorage cache when logging out
   }
 });
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+  .then(function() {
+  });
 
 
 // The start method will wait until the DOM is loaded.

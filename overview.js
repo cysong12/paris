@@ -1,3 +1,14 @@
+let uid = localStorage.getItem("userId");
+console.log(uid);
+if (uid !== "gDquuD8SSHRtpQLVpAt9fTt886r2" && uid !== "lhVx5eeIyvdSwtpeU9D9Jx8DZDw1") {
+    document.getElementById("authorized").style.display = "none";
+}
+//gDquuD8SSHRtpQLVpAt9fTt886r2
+//lhVx5eeIyvdSwtpeU9D9Jx8DZDw1
+else {
+    document.getElementById("security").style.display = "none";
+}
+
 $(document).ready(function(){
 
     let db = firebase.firestore();

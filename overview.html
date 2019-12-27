@@ -28,18 +28,29 @@
             position: relative;
             margin: 15px 0 15px 0;
         }
+        #login {
+            font-size: 36px;
+        }
     </style>
 </head>
   <body>
-
+    <div class="container" id="securityDiv">
+        <div class="row">
+          <div class="col-md-12">
+            <h1 id='security'>Unauthroized user</h1>
+            <a href="index.html" id="login">접속</a>
+          </div>
+        </div>
+      </div>
+    <div id="authorized">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="index.html">파리바게트</a>
+            <a class="navbar-brand" href="main.html">파리바게트</a>
           </div>
           <ul class="nav navbar-nav">
             <li><a href="index.html">홈</a></li>
-            <li class="active"><a href="overview.html">기간별 급여</a></li>
+            <li class="active"><a href="main.html">기간별 급여</a></li>
             <li><a href="employee.html">직원</a></li>
             <li><a href="rate.html">시급</a></li>
             <li><a href="manual.html">설명서</a></li>
@@ -104,24 +115,7 @@
             </div>
         </div>
     </div>
-
-<script>
-    
-    $(document).ready(function(){
-
-        $('#datetimepicker6').datetimepicker();
-            $('#datetimepicker7').datetimepicker({
-                useCurrent: false //Important! See issue #1075
-            });
-            $("#datetimepicker6").on("dp.change", function (e) {
-                $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-            });
-            $("#datetimepicker7").on("dp.change", function (e) {
-                $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-            });
-
-    });
-</script>
+</div>
 <script src="overview.js"></script>
 </body>
 </html>
