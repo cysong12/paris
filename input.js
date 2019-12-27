@@ -158,7 +158,7 @@ $(document).ready(function(){
             console.log('hmm');
             db.collection("employees").doc(String.fromCharCode(j+65)).collection("timetable").doc(date).get().then(function(doc) {
                 if (doc.exists) {
-                    if (doc.data().startTime !== "00:00:00") {
+                    if (doc.data().endTime !== "00:00:00") {
                         console.log('yo');
                         startTimes[j].value = doc.data().startTime;
                         endTimes[j].value = doc.data().endTime;
