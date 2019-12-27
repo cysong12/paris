@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="firebase.js"></script>
+
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+    <link rel='stylesheet prefetch' href='https://www.bootstrap-year-calendar.com/css/bootstrap-datepicker.min.css'>
+    <link rel='stylesheet prefetch' href='https://www.bootstrap-year-calendar.com/css/bootstrap-theme.min.css'>
+    <link rel='stylesheet prefetch' href='https://www.bootstrap-year-calendar.com/css/bootstrap-year-calendar.min.css'>
+    <link rel='stylesheet prefetch' href='https://www.bootstrap-year-calendar.com/css/font-awesome.min.css'>
+    
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+    <script src='https://www.bootstrap-year-calendar.com/js/respond.min.js'></script>
+    <script src='https://www.bootstrap-year-calendar.com/js/bootstrap-datepicker.min.js'></script>
+    <script src='https://www.bootstrap-year-calendar.com/js/bootstrap-year-calendar.min.js'></script>
+    <script src='https://www.bootstrap-year-calendar.com/js/bootstrap-popover.js'></script>
+    <script src='https://www.bootstrap-year-calendar.com/js/scripts.js'></script>
+
+    <!--bootstrap-year-calendar-->
+    <link rel='stylesheet' type='text/css' href="calendar.css">
+    <script src="calendar.js"></script>
+    
+  </head>
+  <body>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">파리바게트</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="index.html">홈</a></li>
+            <li><a href="overview.html">기간별 급여</a></li>
+            <li><a href="employee.html">직원</a></li>
+            <li><a href="rate.html">시급</a></li>
+            <li><a href="manual.html">설명서</a></li>
+
+          </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+                <h1>파리바게트 설명서</h1>      
+                <p>다음 정보들은 차례대로 파리바게트 어떻게 사용하는지 알려드립니다.</p>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>1.직원 탭</h1>
+                <p>데이타베이스에서 전에 적어놓으신 직원들을 불러옵니다.<p>
+                <p>직원 이름을 적거나 수정합니다.</p>
+                <p>최대한 18명까지 가능합니다만 더 필요하시다면 송주현한태 말씀해주세요.</p>
+                <p>이름들 다 적으신 뒤 저장 버튼을 누릅니다.</p>
+                <p><b>전 이름들을 수정하거나 지우신뒤에 저장하시면 전정보들이 (급여 포함) 삭제됩니다</b></p>
+                <p>정보가 확실한지 체크합니다. 정보가 맞으시다면 "OK"를 누릅니다.</p>
+                <p>웹페이지 밑쪽부분에 "저장중"이 뜨면 몇초뒤에 정보가 데이타베이스에 저장됩니다.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1>2.시급 탭</h1>
+                <p>데이타베이스에서 전에 적어놓으신 직원들의 시급들을 불러옵니다.<p>
+                <p>시급을 적거나 수정합니다.</p>
+                <p>이름들 다 적으신 뒤 저장 버튼을 누릅니다.</p>
+                <p>웹페이지 밑쪽부분에 "저장중"이 뜨면 몇초뒤에 정보가 데이타베이스에 저장됩니다.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1>3.홈 탭</h1>
+                <p>직원들이랑 직원들의 시급들 채우신뒤로 홈탭이나 파리바게트이름을 클릭합니다.</p>
+                <p>달력에서 일급 정보 채우실 날짜를 선택합니다.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1>4.정보 넣기</h1>
+                <p>데이타베이스가 그날의 전정보가 있다면 불로옵니다.</p>
+                <p>직원당 일한 시작시간이랑 끝시간을 선택합니다. (AM: 오전, PM: 오후)</p>
+                <p>시간 다 채우신뒤에 오른쪽에 "총액 확인" 버튼을 누릅니다.</p>
+                <p>각 직원들 이름 밑에 그날의 총 일급을 보여줍니다.</p>
+                <p><b>각 직원중에 그날에 일한시간이 12시간이 넘거나 끝시간이 시작시간보다 더 일찍 시작하면 그 직원이름 밑에 빨간 글씨로 알려드립니다.</b></p>
+                <p>오류가 없다면 저장이 가능하십니다. 오른쪽에 저장버튼을 누릅니다. 직원중 12시간 넘게 있다면 확인 창이 뜹니다.</p>
+                <p>웹페이지 밑쪽부분에 "저장중"이 뜨면 몇초뒤에 정보가 데이타베이스에 저장됩니다.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1>5.기간별 급여 탭</h1>
+                <p>시작 날짜과 (위) 끝 날짜를 (밑) 선택합니다.</p>
+                <p>선택한뒤에 밑에 "보기" 버튼을 누릅니다.</p>
+                <p>각 직원들의 그 기견별 급여를 보여드립니다.</p>
+            </div>
+        </div>
+    </div>
+
+
+  </body>
+</html>
