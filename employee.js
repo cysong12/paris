@@ -68,13 +68,23 @@ $(document).ready(function(){
                         });
                     //}
                 }
-                window.alert("저장이 완료되었습니다");      //timeout of 5 seconds
-                
+                tempAlert();
+                setTimeout(function() {
+                    window.alert("저장이 완료되었습니다");
+                }, 2500);
             }
 
         });
     }
-
+    function tempAlert(){
+        let el = document.createElement("div");
+        el.setAttribute("style","position:relative;margin:10px 0px 0px 0px;background-color:grey;color:white;");
+        el.innerHTML = "저장중...";
+        setTimeout(function(){
+            el.parentNode.removeChild(el);
+        }, 2000);
+        document.body.appendChild(el);
+    }
 
 
 

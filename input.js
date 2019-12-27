@@ -224,7 +224,21 @@ $(document).ready(function(){
                 });
             }
         }
+        tempAlert();
+        setTimeout(function() {
+            window.alert("저장이 완료되었습니다");
+        }, 2500);
     });
+
+    function tempAlert(){
+        let el = document.createElement("div");
+        el.setAttribute("style","position:fixed;bottom:300px;right:50px;background-color:lightgrey;");
+        el.innerHTML = "저장중...";
+        setTimeout(function(){
+            el.parentNode.removeChild(el);
+        }, 2000);
+        document.body.appendChild(el);
+    }
 
     let endTotalMinutes, startTotalMinutes, durationMinute, durationHour;
 
