@@ -270,7 +270,7 @@ $(document).ready(function(){
                 dayIncomeLabel[i].style.color = "red";
                 document.getElementById("saveButton").disabled = true;
                 valid = false;
-            } else if (difference > 720) {
+            } else if (difference >= 720) {
                 dayIncomeLabel[i].innerHTML = '12시간이 넘습니다!';
                 dayIncomeLabel[i].style.color = "red";
                 valid12 = false;
