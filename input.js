@@ -227,7 +227,7 @@ $(document).ready(function(){
         tempAlert();
         setTimeout(function() {
             window.alert("저장이 완료되었습니다");
-        }, 2500);
+        }, 1500);
     });
 
     function tempAlert(){
