@@ -236,7 +236,7 @@ $(document).ready(function(){
         el.innerHTML = "저장중...";
         setTimeout(function(){
             el.parentNode.removeChild(el);
-        }, 2000);
+        }, 1000);
         document.body.appendChild(el);
     }
 
