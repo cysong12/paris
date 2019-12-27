@@ -52,7 +52,7 @@ $(document).ready(function(){
         let th3 = document.createElement("TH");
         let th4 = document.createElement("TH");
         let tbody = document.createElement("TBODY");
-        table.className = "table";
+        table.className = "table table-striped";
         div.appendChild(table);
         table.appendChild(thead);
         thead.appendChild(tr);
