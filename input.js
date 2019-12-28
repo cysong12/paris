@@ -23,7 +23,29 @@ $(document).ready(function(){
     let queryStringURL = decodeURIComponent(window.location.search);
     let tempVar = queryStringURL.split('?');
     let date = tempVar[1];
-    console.log(date);
+    if (tempVar[2] === undefined) {
+        store = "store1";
+    } else {
+        store = tempVar[2];
+    }
+    
+    document.getElementById("storeName").innerHTML = document.getElementById(store).innerHTML;
+
+    $("#store1").click(function() {
+        store = "store1";
+        document.getElementById("storeName").innerHTML = document.getElementById("store1").innerHTML;
+        window.location.href = "input.html?" + date + '?' + store;
+    });
+    $("#store2").click(function() {
+        store = "store2";
+        document.getElementById("storeName").innerHTML = document.getElementById("store2").innerHTML;
+        window.location.href = "input.html?" + date + '?' + store;
+    });
+    $("#store3").click(function() {
+        store = "store3";
+        document.getElementById("storeName").innerHTML = document.getElementById("store3").innerHTML;
+        window.location.href = "input.html?" + date + '?' + store;
+    });
 
     let datedb, monthdb;
 
@@ -154,7 +176,7 @@ $(document).ready(function(){
     function readEmployeeDb() {
         let i = 0;
         
-        db.collection("employees").get().then(function(querySnapshot) {
+        db.collection(store).get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
                 // doc.data() is never undefined for query doc snapshots
                 if (doc.data().name !== '') {
@@ -170,7 +192,7 @@ $(document).ready(function(){
         });
         for (let j=0; j < 18; j++) {
             console.log('hmm');
-            db.collection("employees").doc(String.fromCharCode(j+65)).collection("timetable").doc(date).get().then(function(doc) {
+            db.collection(store).doc(String.fromCharCode(j+65)).collection("timetable").doc(date).get().then(function(doc) {
                 if (doc.exists) {
                     if (doc.data().endTime !== "00:00:00") {
                         console.log('yo');
@@ -210,9 +232,10 @@ $(document).ready(function(){
                     dayIncome = difference / 60 * wageArr[i];
                     dayIncomeArr.push(dayIncome);
                     console.log((difference / 60 * wageArr[i]).toFixed(2));
-                    db.collection("employees").doc(String.fromCharCode(i+65)).collection("timetable").doc(date).set({
+                    db.collection(store).doc(String.fromCharCode(i+65)).collection("timetable").doc(date).set({
                         startTime: startTemp,
                         endTime: endTemp,
+                        wage: wageArr[i],
                         duration: difference,
                         dateCode: Number(datedb),
                         dayIncome: (difference / 60 * wageArr[i]).toFixed(2)
@@ -229,9 +252,10 @@ $(document).ready(function(){
                 dayIncome = difference / 60 * wageArr[i];
                 dayIncomeArr.push(dayIncome);
                 console.log((difference / 60 * wageArr[i]).toFixed(2));
-                db.collection("employees").doc(String.fromCharCode(i+65)).collection("timetable").doc(date).set({
+                db.collection(store).doc(String.fromCharCode(i+65)).collection("timetable").doc(date).set({
                     startTime: startTemp,
                     endTime: endTemp,
+                    wage: wageArr[i],
                     duration: difference,
                     dateCode: Number(datedb),
                     dayIncome: (difference / 60 * wageArr[i]).toFixed(2)

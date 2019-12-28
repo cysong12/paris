@@ -15,23 +15,50 @@ if (uid !== "gDquuD8SSHRtpQLVpAt9fTt886r2" && uid !== "lhVx5eeIyvdSwtpeU9D9Jx8DZ
 $(document).ready(function(){
 
     let db = firebase.firestore();
+    let input1, input2, input1Obj, input2Obj;
 
-    $("#viewButton").click(function() {
-        let del = document.getElementById("table");
+    let store = "store1";
+    document.getElementById("storeName").innerHTML = document.getElementById(store).innerHTML;
+    let del = document.getElementById("table");
+
+    function delChildrenNodes(del) {
         while (del.hasChildNodes()) {
             del.removeChild(del.lastChild);
         }
-        let input1 = document.getElementById('datetimepicker1').value;
-        let input2 = document.getElementById('datetimepicker2').value;
+    }
+
+    $("#store1").click(function() {
+        store = "store1";
+        document.getElementById("storeName").innerHTML = document.getElementById("store1").innerHTML;
+        delChildrenNodes(del);
+        showDateData(input1Obj, input2Obj);
+    });
+    $("#store2").click(function() {
+        store = "store2";
+        document.getElementById("storeName").innerHTML = document.getElementById("store2").innerHTML;
+        delChildrenNodes(del);
+        showDateData(input1Obj, input2Obj);
+    });
+    $("#store3").click(function() {
+        store = "store3";
+        document.getElementById("storeName").innerHTML = document.getElementById("store3").innerHTML;
+        delChildrenNodes(del);
+        showDateData(input1Obj, input2Obj);
+    });
+
+    $("#viewButton").click(function() {
+        delChildrenNodes(del);
+        input1 = document.getElementById('datetimepicker1').value;
+        input2 = document.getElementById('datetimepicker2').value;
         console.log(input1, input2);
-        let input1Obj = {
+        input1Obj = {
             year: Number(input1.substring(0, 4)),
             month: Number(input1.substring(5, 7)),
             monthName: switchMonth(Number(input1.substring(5, 7))),
             day: Number(input1.substring(8, 10)),
             dayName: input1.substring(11, 14)
         }
-        let input2Obj = {
+        input2Obj = {
             year: Number(input2.substring(0, 4)),
             month: Number(input2.substring(5, 7)),
             monthName: switchMonth(Number(input2.substring(5, 7))),
@@ -95,7 +122,7 @@ $(document).ready(function(){
         let tbody = document.getElementById("tbody");
 
         //get each employee's work duration and dayIncomes of date range into arrays
-        db.collection("employees").get().then(function(querySnapshot) {
+        db.collection(store).get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
 
                 let tr = document.createElement("TR");
@@ -109,7 +136,8 @@ $(document).ready(function(){
                 tbody.appendChild(tr);
                 tdname.innerHTML = doc.data().name;
                 tr.appendChild(tdname);
-                tdwage.innerHTML = '₩' + doc.data().wage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                tdwage.innerHTML = 
+                '₩' + doc.data().wage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 tr.appendChild(tdwage);
                 tr.appendChild(tdduration);
                 tr.appendChild(tddayincome);

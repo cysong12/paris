@@ -17,14 +17,42 @@ $(document).ready(function(){
     let db = firebase.firestore();
 
     let name, form;
+    let store;
+
+    let queryStringURL = decodeURIComponent(window.location.search);
+    let tempVar = queryStringURL.split('?');
+    if (tempVar[1] === undefined) {
+        store = "store1"
+    } else {
+        store =tempVar[1];
+    }
+
+    document.getElementById("storeName").innerHTML = document.getElementById(store).innerHTML;
 
     edit();
     readEmployeeDb();
+
+    $("#store1").click(function() {
+        store = "store1";
+        document.getElementById("storeName").innerHTML = document.getElementById("store1").innerHTML;
+        window.location.href = "employee.html?" + store;
+    });
+    $("#store2").click(function() {
+        store = "store2";
+        document.getElementById("storeName").innerHTML = document.getElementById("store2").innerHTML;
+        window.location.href = "employee.html?" + store;
+    });
+    $("#store3").click(function() {
+        store = "store3";
+        document.getElementById("storeName").innerHTML = document.getElementById("store3").innerHTML;
+        window.location.href = "employee.html?" + store;
+    });
     
     function readEmployeeDb() {
         let i = 0; 
         let j;
-        db.collection("employees").get().then(function(querySnapshot) {
+
+        db.collection(store).get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
                 // doc.data() is never undefined for query doc snapshots
                 if (doc.data().name !== '' && doc.data().name !== 'undefined') {
@@ -46,31 +74,36 @@ $(document).ready(function(){
             //console.log(names[0].value);
             let clicked = confirm("정보가 확실합니까? 이름이 변경됬거나 순서가 변경되는경우 전 정보가 지워질수도있습니다.");
             if (clicked === true) {
+
                 for (let i = 0; i < names.length; i++) {        //no query since check doc exist
-                        db.collection("employees").doc(String.fromCharCode(i+65)).get().then(function(doc) {
+                        db.collection(store).doc(String.fromCharCode(i+65)).get().then(function(doc) {
                             if (!doc.exists && names[i].value.replace(/\s+/g, '') !== '') {
                                 console.log('here');
-                                db.collection("employees").doc(String.fromCharCode(i+65)).set({
+                                db.collection(store).doc(String.fromCharCode(i+65)).set({
                                     name: names[i].value.replace(/\s+/g, ''),
-                                    wage: 0
+                                    wage: 0,
+                                    order: i,
+                                    store: store
                                 });
-                                db.collection("employees").doc(String.fromCharCode(i+65)).collection("timetable").get().then(function(querySnapshot) {
-                                    querySnapshot.forEach(function(doc) {
-                                      doc.ref.delete();
-                                    });
-                                  });
+                                //doc.ref.collection("timetable").get().then(function(querySnapshot) {
+                                //    querySnapshot.forEach(function(doc) {
+                                //      doc.ref.delete();
+                                //    });
+                                //  });
                             }
                             else if (doc.exists && names[i].value.replace(/\s+/g, '') === '') {
                                 console.log('yellow');
-                                db.collection("employees").doc(String.fromCharCode(i+65)).delete();
+                                db.collection(store).doc(String.fromCharCode(i+65)).delete();
                             }
                             else if (doc.exists && doc.data().name !== names[i].value.replace(/\s+/g, '')) {
                                 console.log('there');
-                                db.collection("employees").doc(String.fromCharCode(i+65)).set({
+                                db.collection(store).doc(String.fromCharCode(i+65)).set({
                                     name: names[i].value.replace(/\s+/g, ''),
-                                    wage: 0
+                                    wage: 0,
+                                    order: i,
+                                    store: store
                                 });
-                                db.collection("employees").doc(String.fromCharCode(i+65)).collection("timetable").get().then(function(querySnapshot) {
+                                db.collection(store).doc(String.fromCharCode(i+65)).collection("timetable").get().then(function(querySnapshot) {
                                     querySnapshot.forEach(function(doc) {
                                       doc.ref.delete();
                                     });
@@ -84,6 +117,7 @@ $(document).ready(function(){
                 }
                 tempAlert();
                 setTimeout(function() {
+                    //location.reload();
                     window.alert("저장이 완료되었습니다");
                 }, 2500);
             }

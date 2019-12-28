@@ -31,6 +31,19 @@
         #login {
             font-size: 36px;
         }
+        .btn {
+            margin: auto 10px 15px 10px;
+        }
+        .bb {
+            margin: auto;
+        }
+        #store1 {
+            margin-left: 70px;
+        }
+        #storeName {
+            margin: auto 40px 10px 0px;
+            font-size: 28px;
+        }
     </style>
 </head>
   <body>
@@ -88,8 +101,27 @@
                 });
             </script>
         </div>
-        <button type="submit" id="viewButton">보기</button>
-        <p id="checkValidP"></p>
+        <div class="row">
+            <div class="col-sm-4">
+                <button type="submit" id="viewButton">보기</button>
+                <p id="checkValidP"></p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row storeNameText">
+                <div class="col-md-12">
+                    <p class="text-center" id="storeName"></p>
+                </div>
+            </div>
+          </div>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-7 bb">
+                <button id="store1" type="button" class="btn btn-default">왜관</button>
+                <button id="store2" type="button" class="btn btn-default">동성로</button>
+                <button id="store3" type="button" class="btn btn-default">중앙로</button>
+            </div>
+        </div>
     </div>
     <div class="container">
         <div class="row">

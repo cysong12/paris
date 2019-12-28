@@ -41,6 +41,17 @@
         #login {
             font-size: 36px;
         }
+        #buttons {
+            margin: 30px auto 30px auto;
+        }
+        #storeName {
+            margin: auto;
+        }
+        .storeNameText {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 10px auto 10px auto;
+        }
     </style>
     
   </head>
@@ -68,6 +79,26 @@
           </ul>
         </div>
     </nav>
+    <div class="container" id="buttons">
+        <div class="row">
+            <div class="col-md-1">
+                <button id="store1" type="button" class="btn btn-default">왜관</button>
+            </div>
+            <div class="col-md-1">
+                <button id="store2" type="button" class="btn btn-default">동성로</button>
+            </div>
+            <div class="col-md-1">
+                <button id="store3" type="button" class="btn btn-default">중앙로</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row storeNameText">
+            <div class="col-md-9">
+                <p class="text-center" id="storeName"></p>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-3">
@@ -88,6 +119,7 @@
                     <input type="text" class="form-control" id="usr3">
                 </div>
             </div>
+            
         </div>
         <div class="row">
             <div class="col-md-3">

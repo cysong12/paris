@@ -55,6 +55,17 @@
       #login {
         font-size: 36px;
       }
+      #storeName {
+          margin: auto;
+      }
+      .storebtns {
+        margin: 0px auto 20px auto;
+      }
+      .storeNameText {
+          font-size: 28px;
+          font-weight: bold;
+          margin: 10px auto 10px auto;
+      }
     </style>
   </head>
   <body>
@@ -87,17 +98,41 @@
     <div class="container">
       <div class="row">
         <div class="col-md-2">
-          <button id="backButton" onclick="window.history.back()">뒤로</button>
+          <button id="backButton" onclick="window.history.go(-1);">뒤로</button>
         </div>
-        <div class="col-md-3 col-center">
+        <div class="col-md-2">
         </div>
-        <div class="col-md-5 col-center">
+        <div class="col-md-5 text-center">
           <p id="dateP"></p>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-5 text-center">
+          <p id="storeName"></p>
         </div>
       </div>
     </div>
     <br>
     <br>
+    <div class="container storebtns">
+      <div class="row">
+          <div class="col-md-2">
+            <button id="store1" class="storebtn">왜관</button>
+          </div>
+          <div class="col-md-2">
+            <button id="store2" class="storebtn">동성로</button>
+          </div>
+          <div class="col-md-2">
+            <button id="store3" class="storebtn">중앙로</button>
+          </div>
+      </div>
+  </div>
     <div class="container">
       <div class="row">
         <div class="col-md-3">

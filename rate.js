@@ -16,14 +16,41 @@ $(document).ready(function(){
     let db = firebase.firestore();
 
     let name, label, wage;
+    let store;
+
+    let queryStringURL = decodeURIComponent(window.location.search);
+    let tempVar = queryStringURL.split('?');
+    if (tempVar[1] === undefined) {
+        store = "store1";
+    } else {
+        store =tempVar[1];
+    }
+
+    document.getElementById("storeName").innerHTML = document.getElementById(store).innerHTML;
 
     edit();
     readEmployeeDb();
 
+    $("#store1").click(function() {
+        store = "store1";
+        document.getElementById("storeName").innerHTML = document.getElementById("store1").innerHTML;
+        window.location.href = "rate.html?" + store;
+    });
+    $("#store2").click(function() {
+        store = "store2";
+        document.getElementById("storeName").innerHTML = document.getElementById("store2").innerHTML;
+        window.location.href = "rate.html?" + store;
+    });
+    $("#store3").click(function() {
+        store = "store3";
+        document.getElementById("storeName").innerHTML = document.getElementById("store3").innerHTML;
+        window.location.href = "rate.html?" + store;
+    });
+
     function readEmployeeDb() {
         let i = 0; 
         let j;
-        db.collection("employees").get().then(function(querySnapshot) {
+        db.collection(store).get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
                 // doc.data() is never undefined for query doc snapshots
                 if (doc.data().name !== '') {
@@ -47,7 +74,7 @@ $(document).ready(function(){
             //console.log(names[0].value);
             for (let i = 0; i < wages.length; i++) {
                 if (wages[i].value.replace(/\s+/g, '') != '') {         //use trim (easier for deletion)
-                    db.collection("employees").doc(String.fromCharCode(i+65)).set({
+                    db.collection(store).doc(String.fromCharCode(i+65)).set({
                         wage: wages[i].value.replace(/\s+/g, '')
                     }, {merge: true});
                 }
