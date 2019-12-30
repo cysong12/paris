@@ -83,9 +83,11 @@ $(document).ready(function(){
         //if (input1 < input2)
         
     });
-    function createTable() {
-        let div = document.getElementById("table");
-        let table = document.createElement("TABLE");
+    let div = document.getElementById("table");
+    //let overviewTable = document.createElement("TABLE");
+    function createTable(tableId) {
+        let tableEl = document.createElement("TABLE");
+        tableEl.setAttribute("id", tableId);
         let thead = document.createElement("THEAD");
         let tr = document.createElement("TR");
         let th1 = document.createElement("TH");
@@ -93,12 +95,12 @@ $(document).ready(function(){
         let th3 = document.createElement("TH");
         let th4 = document.createElement("TH");
         let tbody = document.createElement("TBODY");
-        table.className = "table table-striped table-bordered";
-        div.appendChild(table);
-        table.appendChild(thead);
+        tableEl.className = "table table-striped table-bordered";
+        div.appendChild(tableEl);
+        tableEl.appendChild(thead);
         thead.appendChild(tr);
         th1.innerHTML = "이름";
-        th2.innerHTML = "시급";
+        th2.innerHTML = "시급 (기간 평균)";
         th3.innerHTML = "시간";
         th4.innerHTML = "급여";
         tr.appendChild(th1);
@@ -106,7 +108,7 @@ $(document).ready(function(){
         tr.appendChild(th3);
         tr.appendChild(th4);
         tbody.setAttribute("ID", "tbody");
-        table.appendChild(tbody);
+        tableEl.appendChild(tbody);
     }
 
     function showDateData(input1, input2) {
@@ -118,36 +120,113 @@ $(document).ready(function(){
         let durationArr = [];
         let dayIncomeArr = [];
 
-        createTable();
+        createTable("overviewTable");
         let tbody = document.getElementById("tbody");
 
         //get each employee's work duration and dayIncomes of date range into arrays
         db.collection(store).get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
-
                 let tr = document.createElement("TR");
+                tr.className = "employeeRow";
+                let employeeDetailTr = document.createElement("TR");
+                let temptd = document.createElement("TD");
+                temptd.setAttribute("colspan", "4");
+                let tempth = document.createElement("TH");
+                tempth.setAttribute("colspan", "1");
+                let tr1 = document.createElement("TR");
+                let th1 = document.createElement("TH");
+                let th2 = document.createElement("TH");
+                let th3 = document.createElement("TH");
+                let th4 = document.createElement("TH");
+                let th5 = document.createElement("TH");
+                let th6 = document.createElement("TH");
+                th1.innerHTML = "날짜";
+                th2.innerHTML = "시급";
+                th3.innerHTML = "시작";
+                th4.innerHTML = "끝";
+                th5.innerHTML = "시간";
+                th6.innerHTML = "일급";
+                employeeDetailTr.appendChild(temptd);
+                employeeDetailTr.className = "employeeOverviewDetail";
+                let employeeDetailTable = document.createElement("TABLE"); // table goes in tr
+                employeeDetailTable.style.tableLayout = "fixed";
+                employeeDetailTable.style.width = "700px";
+                temptd.appendChild(employeeDetailTable);
+                employeeDetailTable.appendChild(tr1);
+                th1.setAttribute("colspan", "3");
+                th2.setAttribute("colspan", "3");
+                th3.setAttribute("colspan", "3");
+                th4.setAttribute("colspan", "3");
+                th5.setAttribute("colspan", "3");
+                th6.setAttribute("colspan", "3");
+                tr1.appendChild(tempth);
+                tr1.appendChild(th1);
+                tr1.appendChild(th2);
+                tr1.appendChild(th3);
+                tr1.appendChild(th4);
+                tr1.appendChild(th5);
+                tr1.appendChild(th6);
                 let tdname = document.createElement("TD");
                 let tdduration = document.createElement("TD");
                 tdduration.setAttribute("class", "tdduration");
                 let tdwage = document.createElement("TD");
                 let tddayincome= document.createElement("TD");
+                let sumWage = 0;
+                let days = 0;
                 tddayincome.setAttribute("class", "tddayincome");
-
                 tbody.appendChild(tr);
+                tbody.appendChild(employeeDetailTr);
                 tdname.innerHTML = doc.data().name;
                 tr.appendChild(tdname);
-                tdwage.innerHTML = 
-                '₩' + doc.data().wage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 tr.appendChild(tdwage);
                 tr.appendChild(tdduration);
                 tr.appendChild(tddayincome);
                 doc.ref.collection("timetable").where("dateCode", ">=", queryDateFormat(startDate))
                 .where("dateCode", "<=", queryDateFormat(endDate)).get().then(function(querySnapshot) {
                     querySnapshot.forEach(function(doc) {
+                        sumWage += Number(doc.data().wage);
+                        console.log(doc.data().wage, sumWage);
                         tdduration.innerHTML = Number(tdduration.innerHTML) + Number(doc.data().duration);
                         tddayincome.innerHTML = Number(tddayincome.innerHTML) + Number(doc.data().dayIncome);
+                        days++;
+                        let tdtempp = document.createElement("td");
+                        tdtempp.setAttribute("colspan", "1");
+                        let tr2 = document.createElement("TR");
+                        employeeDetailTable.appendChild(tr2);
+                        let tddaydate = document.createElement("td");
+                        tddaydate.innerHTML = doc.data().dateCode.toString();
+                        tddaydate.setAttribute("colspan", "3");
+                        let tddayduration = document.createElement("td");
+                        tddayduration.setAttribute("colspan", "3");
+                        let tddaystarttime = document.createElement("td");
+                        tddaystarttime.setAttribute("colspan", "3");
+                        let tddayendtime = document.createElement("td");
+                        tddayendtime.setAttribute("colspan", "3");
+                        let tddaywage = document.createElement("td");
+                        tddaywage.setAttribute("colspan", "3");
+                        let tddayincome1 = document.createElement("td");
+                        tddayincome1.setAttribute("colspan", "3");
+                        tddayduration.innerHTML = Math.floor(tddayduration.innerHTML / 60).toString() + '시간 ' + (tddayduration.innerHTML % 60).toString() + '분';
+                        tddaystarttime.innerHTML = doc.data().startTime;
+                        tddayendtime.innerHTML = doc.data().endTime;
+                        tddaywage.innerHTML = '₩' + doc.data().wage;
+                        tddayincome1.innerHTML = '₩' + doc.data().dayIncome;
+                        tr2.appendChild(tdtempp);
+                        tr2.appendChild(tddaydate);
+                        tr2.appendChild(tddaywage);
+                        tr2.appendChild(tddaystarttime);
+                        tr2.appendChild(tddayendtime);
+                        tr2.appendChild(tddayduration);
+                        tr2.appendChild(tddayincome1);
                     });
-                    tdduration.innerHTML = Math.floor(tdduration.innerHTML / 60).toString() + '시간 ' + (tdduration.innerHTML % 60).toString() + '분';
+                    console.log(sumWage);
+                    if (sumWage !== 0) {
+                        tdwage.innerHTML = '₩' + Number(sumWage / days).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    } else {
+                        console.log('yo');
+                        tdwage.innerHTML = '₩' + Number(doc.data().wage).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    }
+                        tdduration.innerHTML = Math.floor(tdduration.innerHTML / 60).toString() + '시간 ' + (tdduration.innerHTML % 60).toString() + '분';
                     if (tddayincome.innerHTML != '') {
                         tddayincome.innerHTML = '₩' + tddayincome.innerHTML.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     } else {
@@ -158,6 +237,16 @@ $(document).ready(function(){
                     console.log("Error getting documents: ", error);
                 });
             });
+            //employeeOverviewDetail
+            //$("#overviewTable tr.employeeRow").addClass("odd");
+            $("#overviewTable .employeeOverviewDetail").hide();
+            //$("#overviewTable tr:first-child").show();
+            
+            $("#overviewTable .employeeRow").click(function(){
+                $(this).next("tr").toggle();
+                $(this).find(".arrow").toggleClass("up");
+            });
+            //$("#report").jExpand();
         });
     }
 
