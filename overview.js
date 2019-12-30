@@ -209,8 +209,16 @@ $(document).ready(function(){
                             tddayincome1.setAttribute("colspan", "3");
                             tddaydurationtemp = doc.data().duration;
                             tddayduration.innerHTML = Math.floor(tddaydurationtemp / 60).toString() + '시간 ' + ((tddaydurationtemp) % 60).toString() + '분';
-                            tddaystarttime.innerHTML = doc.data().startTime;
-                            tddayendtime.innerHTML = doc.data().endTime;
+                            if (doc.data().startTime === "00:00:00") {
+                                tddaystarttime.innerHTML = "00:00";
+                            } else {
+                                tddaystarttime.innerHTML = doc.data().startTime;
+                            }
+                            if (doc.data().endTime === "00:00:00") {
+                                tddayendtime.innerHTML = "00:00";
+                            } else {
+                                tddayendtime.innerHTML = doc.data().endTime;
+                            }
                             tddaywage.innerHTML = '₩' + doc.data().wage;
                             tddayincome1.innerHTML = '₩' + doc.data().dayIncome;
                             tr2.appendChild(tdtempp);

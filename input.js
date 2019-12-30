@@ -28,7 +28,7 @@ $(document).ready(function(){
     } else {
         store = tempVar[2];
     }
-    
+
     document.getElementById("storeName").innerHTML = document.getElementById(store).innerHTML;
 
     $("#store1").click(function() {
@@ -238,7 +238,7 @@ $(document).ready(function(){
                         wage: wageArr[i],
                         duration: difference,
                         dateCode: Number(datedb),
-                        dayIncome: (difference / 60 * wageArr[i]).toFixed(2)
+                        dayIncome: Number((difference / 60 * wageArr[i]).toFixed(2))
                     });
                 }
             }
@@ -258,7 +258,7 @@ $(document).ready(function(){
                     wage: wageArr[i],
                     duration: difference,
                     dateCode: Number(datedb),
-                    dayIncome: (difference / 60 * wageArr[i]).toFixed(2)
+                    dayIncome: Number((difference / 60 * wageArr[i]).toFixed(2))
                 });
             }
         }
