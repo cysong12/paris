@@ -195,7 +195,8 @@ $(document).ready(function(){
                             let tr2 = document.createElement("TR");
                             employeeDetailTable.appendChild(tr2);
                             let tddaydate = document.createElement("td");
-                            tddaydate.innerHTML = doc.data().dateCode.toString();
+                            let datetemp = doc.data().dateCode.toString();
+                            tddaydate.innerHTML = datetemp.substring(0, 4) + "-" + datetemp.substring(4, 6) + "-" + datetemp.substring(6, 8);
                             tddaydate.setAttribute("colspan", "3");
                             let tddayduration = document.createElement("td");
                             tddayduration.setAttribute("colspan", "3");
