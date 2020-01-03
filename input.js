@@ -222,7 +222,7 @@ $(document).ready(function(){
     $("#saveButton").click(function() {
         if (valid12 === false) {
             let clicked = confirm("직원중 한명이 12시간이 넘습니다. 그래도 저장하시겠습니까?");
-            if (clicked == true) {
+            if (clicked == true) { //00:00:00
                 for (i = 0; i < employee_count; i++) {
                     startTemp = startTimes[i].value;
                     endTemp = endTimes[i].value;
@@ -233,8 +233,8 @@ $(document).ready(function(){
                     dayIncomeArr.push(dayIncome);
                     console.log((difference / 60 * wageArr[i]).toFixed(2));
                     db.collection(store).doc(String.fromCharCode(i+65)).collection("timetable").doc(date).set({
-                        startTime: startTemp,
-                        endTime: endTemp,
+                        startTime: startTemp.substring(0,5),
+                        endTime: endTemp.substring(0,5),
                         wage: wageArr[i],
                         duration: difference,
                         dateCode: Number(datedb),
@@ -253,8 +253,8 @@ $(document).ready(function(){
                 dayIncomeArr.push(dayIncome);
                 console.log((difference / 60 * wageArr[i]).toFixed(2));
                 db.collection(store).doc(String.fromCharCode(i+65)).collection("timetable").doc(date).set({
-                    startTime: startTemp,
-                    endTime: endTemp,
+                    startTime: startTemp.substring(0,5),
+                    endTime: endTemp.substring(0,5),
                     wage: wageArr[i],
                     duration: difference,
                     dateCode: Number(datedb),
