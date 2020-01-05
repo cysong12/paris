@@ -172,6 +172,7 @@ $(document).ready(function(){
     let startTimes = document.getElementsByClassName("startTime");
     let endTimes = document.getElementsByClassName("endTime");
     let dayIncomeLabel = document.getElementsByClassName("dayIncome");
+    let nextDayAlert = document.getElementsByClassName("nextDayAlert");
 
     function readEmployeeDb() {
         let i = 0;
@@ -194,7 +195,7 @@ $(document).ready(function(){
             console.log('hmm');
             db.collection(store).doc(String.fromCharCode(j+65)).collection("timetable").doc(date).get().then(function(doc) {
                 if (doc.exists) {
-                    if (doc.data().endTime !== "00:00:00") {
+                    if (doc.data().startTime !== "00:00:00" && doc.data().endTime !== "00:00:00") {
                         console.log('yo');
                         startTimes[j].value = doc.data().startTime;
                         endTimes[j].value = doc.data().endTime;
@@ -226,6 +227,11 @@ $(document).ready(function(){
                 for (i = 0; i < employee_count; i++) {
                     startTemp = startTimes[i].value;
                     endTemp = endTimes[i].value;
+                    if (Number((startTemp.substring(0, 2)) > Number(endTemp.substring(0, 2))) && Number(endTemp.substring(0, 2)) < 6) {
+                        endTemp = (Number(endTemp.substring(0, 2)) + 24).toString() + endTemp.substring(2, 5);
+                        nextDayAlert[i].innerHTML = "다음날";
+                        nextDayAlert[i].style.color = "red";
+                    }
                     differenceArr = differenceCalculate(startTemp, endTemp);
                     difference = differenceArr[0];
                     differencePrint = differenceArr[1];
@@ -246,6 +252,11 @@ $(document).ready(function(){
             for (i = 0; i < employee_count; i++) {
                 startTemp = startTimes[i].value;
                 endTemp = endTimes[i].value;
+                if (Number((startTemp.substring(0, 2)) > Number(endTemp.substring(0, 2))) && Number(endTemp.substring(0, 2)) < 6) {
+                    endTemp = (Number(endTemp.substring(0, 2)) + 24).toString() + endTemp.substring(2, 5);
+                    nextDayAlert[i].innerHTML = "다음날";
+                    nextDayAlert[i].style.color = "red";
+                }
                 differenceArr = differenceCalculate(startTemp, endTemp);
                 difference = differenceArr[0];
                 differencePrint = differenceArr[1];
@@ -301,6 +312,12 @@ $(document).ready(function(){
         for (let i = 0; i < employee_count; i++) {
             startTemp = startTimes[i].value;
             endTemp = endTimes[i].value;
+            if (Number((startTemp.substring(0, 2)) > Number(endTemp.substring(0, 2))) && Number(endTemp.substring(0, 2)) < 6) {
+                endTemp = (Number(endTemp.substring(0, 2)) + 24).toString() + endTemp.substring(2, 5);
+                nextDayAlert[i].innerHTML = "다음날";
+                nextDayAlert[i].style.color = "red";
+            }
+            console.log(endTemp, typeof(endTemp));
             differenceArr = differenceCalculate(startTemp, endTemp);
             difference = differenceArr[0];
             if (difference < 0) {
