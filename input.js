@@ -198,7 +198,11 @@ $(document).ready(function(){
                     if (doc.data().startTime !== "00:00:00" && doc.data().endTime !== "00:00:00") {
                         console.log('yo');
                         startTimes[j].value = doc.data().startTime;
-                        endTimes[j].value = doc.data().endTime;
+                        if ((Number(doc.data().endTime.substring(0, 2)) > Number(doc.data().startTime.substring(0, 2))) && Number(doc.data().endTime.substring(0, 2)) >= 24) {
+                            endTimes[j].value = '0' + (Number(doc.data().endTime.substring(0, 2)) - 24).toString() + doc.data().endTime.substring(2, 5);
+                        } else {
+                            endTimes[j].value = doc.data().endTime;
+                        }
                         dayIncomeLabel[j].innerHTML = "일급: ₩" + doc.data().dayIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     } else {
                         startTimes[j].value = "00:00:00";
