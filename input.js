@@ -200,6 +200,8 @@ $(document).ready(function(){
                         startTimes[j].value = doc.data().startTime;
                         if ((Number(doc.data().endTime.substring(0, 2)) > Number(doc.data().startTime.substring(0, 2))) && Number(doc.data().endTime.substring(0, 2)) >= 24) {
                             endTimes[j].value = '0' + (Number(doc.data().endTime.substring(0, 2)) - 24).toString() + doc.data().endTime.substring(2, 5);
+                            nextDayAlert[j].innerHTML = "다음날";
+                            nextDayAlert[j].style.color = "red";
                         } else {
                             endTimes[j].value = doc.data().endTime;
                         }
